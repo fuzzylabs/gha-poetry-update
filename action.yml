@@ -45,6 +45,7 @@ runs:
     #----------------------------------------------
     - name: Run poetry update
       run: |
+        exit 0 
         UPDATE_MESSAGE=$(poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g')
         echo $UPDATE_MESSAGE
 
