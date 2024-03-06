@@ -1,4 +1,4 @@
-# GHA Poetry Update 🆕
+# Automated Dependency Updates with Poetry 📦
 
 A GitHub action to run [`poetry update`](https://python-poetry.org/docs/cli/#update).
 
@@ -30,6 +30,8 @@ jobs:
     steps:
         - uses: git@github.com:fuzzylabs/gha-poetry-update.git@main
 ```
+
+ ### Handling Private Dependencies Example 🔐
 
 If your poetry package installs dependencies from one or more private repository, you will need to configure the SSH key required to access these repositories.
 
