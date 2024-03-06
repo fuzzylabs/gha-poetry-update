@@ -20,14 +20,6 @@ jobs:
   auto-update:
     runs-on: ubuntu-latest
     steps:
-        - name: Check out repository
-          uses: actions/checkout@v4
-
-        - name: Set up python
-          uses: actions/setup-python@v4
-          with:
-            python-version: '3.10'
-        
         #---------------------------------------------------------------------------
         # If installing a dependencies from private repo, add SSH private key here
         #---------------------------------------------------------------------------
