@@ -36,4 +36,21 @@ jobs:
             ssh-private-key: |
               ${{ secrets.<SSH_PRIVATE_KEY> }}
     
-      - uses: git@github.com:fuzzylabs/gha-poetry-update.git@main
+        - uses: git@github.com:fuzzylabs/gha-poetry-update.git@main
+
+        #----------------------------------------------
+        #              Create a pull request
+        #----------------------------------------------
+        - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            branch: update/poetry-update
+            title: Update poetry dependencies
+            commit-message: "Chore(deps): Upgrading `poetry` dependencies"
+            body: |
+            Update `poetry` dependencies to use latest compatible versions.
+
+            **Outdated packages**:
+                ${{ env.UPDATE_MESSAGE }}
+```
