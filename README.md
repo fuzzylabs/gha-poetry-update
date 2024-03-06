@@ -4,6 +4,14 @@ A GitHub action to run `poetry update`.
 
 Can be used in workflow which would automatically creates a pull request when updates to one or more dependencies are available.
 
+The Poetry update action will:
+1. Checkout the caller repository and set up Python.
+2. Install and configure poetry.
+3. Check whether there is a `poetry.lock` file in the caller repository, skip update if not.
+4. Run `poetry update`.
+5. Create a PR with a description showing the updated dependencies.
+
+
 ## Example
 
 ```yaml
@@ -20,13 +28,30 @@ jobs:
   auto-update:
     runs-on: ubuntu-latest
     steps:
-        #---------------------------------------------------------------------------
-        # If installing dependencies from private repo, add SSH private key here
-        #---------------------------------------------------------------------------
+        - uses: git@github.com:fuzzylabs/gha-poetry-update.git@main
+```
+
+If your poetry package installs dependencies from one or more private repository, you will need to configure the SSH key required to access these repositories.
+
+```yaml
+name: Poetry Update
+
+on: 
+  # Run daily at midnight
+  schedule:
+    - cron: "0 0 * * *"
+  # Allow a manual trigger
+  workflow_dispatch:
+
+jobs:
+  auto-update:
+    runs-on: ubuntu-latest
+    steps:
         - uses: webfactory/ssh-agent@v0.9.0
           with:
             ssh-private-key: |
-              ${{ secrets.<SSH_PRIVATE_KEY> }}
+              ${{ secrets.<SSH_PRIVATE_KEY_1> }}
+              ${{ secrets.<SSH_PRIVATE_KEY_2> }}
     
         - uses: git@github.com:fuzzylabs/gha-poetry-update.git@main
 ```
