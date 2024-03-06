@@ -46,7 +46,7 @@ runs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
           branch: update/poetry-update
           title: Update poetry dependencies
           commit-message: "Chore(deps): Upgrading `poetry` dependencies"
