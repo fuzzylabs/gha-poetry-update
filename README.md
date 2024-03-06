@@ -1,4 +1,4 @@
-# GHA Poetry Update
+# GHA Poetry Update 🆕
 
 A GitHub action to run `poetry update`.
 
