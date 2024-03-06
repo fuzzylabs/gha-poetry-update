@@ -1,6 +1,6 @@
 # GHA Poetry Update 🆕
 
-A GitHub action to run `poetry update`.
+A GitHub action to run [`poetry update`](https://python-poetry.org/docs/cli/#update).
 
 Can be used in workflow which would automatically creates a pull request when updates to one or more dependencies are available.
 
