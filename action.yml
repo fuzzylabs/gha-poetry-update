@@ -36,7 +36,7 @@ runs:
           echo "poetry.lock file found, running poetry update."
         else
           echo "poetry.lock file not found, skipping poetry update."
-          exit 0
+          echo "RUN_UPDATE=false" >> $GITHUB_ENV
         fi
       shell: bash
 
@@ -44,8 +44,8 @@ runs:
     #                Run poetry update
     #----------------------------------------------
     - name: Run poetry update
+      if: env.RUN_UPDATE != 'false'
       run: |
-        exit 0 
         UPDATE_MESSAGE=$(poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g')
         echo $UPDATE_MESSAGE
 
@@ -56,6 +56,7 @@ runs:
     #              Create a pull request
     #----------------------------------------------
     - name: Create Pull Request
+      if: env.RUN_UPDATE != 'false'
       uses: peter-evans/create-pull-request@v6
       with:
           token: ${{ github.token }}
