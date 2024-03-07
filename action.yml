@@ -1,0 +1,71 @@
+name: 'Poetry Update'
+description: 'Runs `poetry update`, checks for newer dependencies. Creates a pull request if any updates are available.'
+branding:
+  icon: "chevrons-up"
+  color: "purple"
+runs:
+  using: "composite"
+  steps:
+    #----------------------------------------------
+    #  Check out the caller repo & Set up python
+    #----------------------------------------------
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Set up python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    #----------------------------------------------
+    #           Install & configure poetry
+    #----------------------------------------------
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: 1.8.2
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+        installer-parallel: true
+
+    #----------------------------------------------
+    #         Check if poetry.lock exists
+    #----------------------------------------------
+    - name: Check if poetry.lock exists
+      run: |
+        if [ -f "poetry.lock" ]; then
+          echo "poetry.lock file found, running poetry update."
+        else
+          echo "poetry.lock file not found, skipping poetry update."
+          echo "RUN_UPDATE=false" >> $GITHUB_ENV
+        fi
+      shell: bash
+
+    #----------------------------------------------
+    #                Run poetry update
+    #----------------------------------------------
+    - name: Run poetry update
+      if: env.RUN_UPDATE != 'false'
+      run: |
+        UPDATE_MESSAGE=$(poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g')
+        echo $UPDATE_MESSAGE
+
+        echo "UPDATE_MESSAGE=$UPDATE_MESSAGE" >> $GITHUB_ENV
+      shell: bash
+
+    #----------------------------------------------
+    #              Create a pull request
+    #----------------------------------------------
+    - name: Create Pull Request
+      if: env.RUN_UPDATE != 'false'
+      uses: peter-evans/create-pull-request@v6
+      with:
+          token: ${{ github.token }}
+          branch: update/poetry-update
+          title: Update poetry dependencies
+          commit-message: "Chore(deps): Upgrading `poetry` dependencies"
+          body: |
+            Update `poetry` dependencies to use latest compatible versions.
+
+            **Outdated packages**:
+                ${{ env.UPDATE_MESSAGE }}
