@@ -35,7 +35,7 @@ jobs:
 
 If your poetry package installs dependencies from one or more private repository, you will need to configure the SSH key required to access these repositories.
 
-For more information on how to add SSH keys, please refer to Usage section of webfactory/ssh-agent github action.
+For more information on how to add SSH keys, please refer to Usage section of [webfactory/ssh-agent](https://github.com/webfactory/ssh-agent?tab=readme-ov-file#usage) github action.
 
 ```yaml
 name: Poetry Update
