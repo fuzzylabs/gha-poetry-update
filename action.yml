@@ -21,7 +21,7 @@ runs:
     - name: Set up python
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ github.event.inputs.python-version }}
+        python-version: ${{ inputs.python-version }}
 
     #----------------------------------------------
     #           Install & configure poetry
@@ -29,7 +29,7 @@ runs:
     - name: Install Poetry
       uses: snok/install-poetry@v1
       with:
-        version: ${{ github.event.inputs.poetry-version }}
+        version: ${{ inputs.poetry-version }}
         virtualenvs-create: true
         virtualenvs-in-project: true
         installer-parallel: true
