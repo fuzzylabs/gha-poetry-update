@@ -3,6 +3,12 @@ description: 'Runs `poetry update`, checks for newer dependencies. Creates a pul
 branding:
   icon: "chevrons-up"
   color: "purple"
+inputs:
+  python-version:
+    description: "The python version to use with poetry"
+  poetry-version:
+    description: "The poetry version to use"
+
 runs:
   using: "composite"
   steps:
@@ -15,7 +21,7 @@ runs:
     - name: Set up python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: ${{ github.event.inputs.python-version }}
 
     #----------------------------------------------
     #           Install & configure poetry
@@ -23,7 +29,7 @@ runs:
     - name: Install Poetry
       uses: snok/install-poetry@v1
       with:
-        version: 1.8.2
+        version: ${{ github.event.inputs.poetry-version }}
         virtualenvs-create: true
         virtualenvs-in-project: true
         installer-parallel: true
