@@ -88,4 +88,4 @@ git push -u origin <your_feature>
 #### 🤔 Making a pull request
 Before a PR can be merged, two core developers need to approve it. The core developer team handle the review process and will be notified when a new PR is submitted.
 
-It may be the case that you have an incomplete contribution, where you're expecting to do more work before receiving a full review. In this case please use the draft PR functionality within GitHub. These types of PRs often benefit from including a task list in the PR description.
+It may be the case that you have an incomplete contribution, where you're expecting to do more work before receiving a full review. In this case please use the [draft PR](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests#draft-pull-requests) functionality within GitHub. These types of PRs often benefit from including a task list in the PR description.
