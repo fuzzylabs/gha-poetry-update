@@ -86,11 +86,6 @@ git push -u origin <your_feature>
 9. Once you're finished and ready to make a pull request to the main repository, then follow the [steps below](#🤔-making-a-pull-request)
 
 #### 🤔 Making a pull request
+Before a PR can be merged, two core developers need to approve it. The core developer team handle the review process and will be notified when a new PR is submitted.
 
-Before a PR can be merged, two core developers need to approve it. It may be the case that you have an incomplete contribution, where you're expecting to do more work before receiving a full review, and these should have the prefix `[DRAFT]` - this will indicate to everyone that it is a work in progress ticket and will avoid duplicated work. These types of PRs often benefit from including a task list in the PR description.
-
-It's important to do the following, and the PR template that you'll see will ask you explicitly:
-
-* Give your pull request a helpful title which summarises what your contribution does.
-
-* Ensure that your code is documented and commented, and that the documentation renders properly.
+It may be the case that you have an incomplete contribution, where you're expecting to do more work before receiving a full review. In this case please use the draft PR functionality within GitHub. These types of PRs often benefit from including a task list in the PR description.
