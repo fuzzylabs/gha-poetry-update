@@ -11,6 +11,7 @@ The Poetry update action will:
 4. Run `poetry update`.
 5. Create a PR with a description showing the updated dependencies.
 
+This action is currently compatible only with Python version 3.10 and will install Poetry version 1.8.2.
 
 ## Example
 
