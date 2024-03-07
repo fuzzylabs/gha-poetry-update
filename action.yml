@@ -23,7 +23,7 @@ runs:
     - name: Install Poetry
       uses: snok/install-poetry@v1
       with:
-        versions: 1.8.2
+        version: 1.8.2
         virtualenvs-create: true
         virtualenvs-in-project: true
         installer-parallel: true
