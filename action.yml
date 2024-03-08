@@ -38,6 +38,8 @@ runs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ inputs.python-version }}
+      env:
+          AGENT_TOOLSDIRECTORY: /opt/hostedtoolcache
 
     #----------------------------------------------
     #           Install & configure poetry
