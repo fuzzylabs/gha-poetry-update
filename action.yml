@@ -6,10 +6,10 @@ branding:
 inputs:
   python-version:
     description: "The python version to use with poetry"
-    default: 3.10.0
+    default: '3.10.0'
   poetry-version:
     description: "The poetry version to use"
-    default: 1.8.2
+    default: '1.8.2'
 
 runs:
   using: "composite"
