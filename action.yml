@@ -35,6 +35,9 @@ runs:
     - name: Install python
       run: |
         curl https://pyenv.run | bash
+        export PYENV_ROOT="$HOME/.pyenv"
+        [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+        eval "$(pyenv init -)"
 
         brew update
         brew install pyenv
