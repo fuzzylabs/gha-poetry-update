@@ -34,9 +34,7 @@ runs:
     #----------------------------------------------
     - name: Install python
       run: |
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/runner/.bashrc
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        curl https://pyenv.run | bash
 
         brew update
         brew install pyenv
@@ -50,10 +48,10 @@ runs:
     - name: Check out repository
       uses: actions/checkout@v4
 
-    - name: Set up python
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ inputs.python-version }}
+    # - name: Set up python
+    #   uses: actions/setup-python@v5
+    #   with:
+    #     python-version: ${{ inputs.python-version }}
 
     #----------------------------------------------
     #           Install & configure poetry
