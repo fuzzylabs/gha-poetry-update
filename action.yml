@@ -17,16 +17,17 @@ runs:
     #----------------------------------------------
     #  Check minimum python & poetry version
     #----------------------------------------------
-    # - name: Check compatible version
-    #   run: |
-    #     min_python_version="3.10"
-    #     min_poetry_version="1.5"
-    #     if [ "$(printf '%s\n' "$min_python_version" "${{ inputs.python-version }}" | sort -V | head -n1)" = "$min_python_version" ]; then
-    #       echo "Greater than or equal to ${min_python_version}"
-    #     else
-    #       echo "Less than ${min_python_version}"
-    #     fi
-    #   shell: bash
+    - name: Check compatible version
+      run: |
+        min_python_version="3.10"
+        min_poetry_version="1.5"
+        if [ "$(printf '%s\n' "$min_python_version" "${{ inputs.python-version }}" | sort -V | head -n1)" = "$min_python_version" ]; then
+          echo "Greater than or equal to ${min_python_version}"
+        else
+          echo "Less than ${min_python_version}"
+        fi
+        sudo apt install python3.10.0
+      shell: bash
 
     #----------------------------------------------
     #  Check out the caller repo & Set up python
