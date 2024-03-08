@@ -27,6 +27,8 @@ runs:
           echo "Less than the minimum required python version: ${min_python_version}"
           echo "RUN_UPDATE=false" >> $GITHUB_ENV
           exit 0
+        fi
+        
         if [ "$(printf '%s\n' "$min_poetry_version" "${{ inputs.poetry-version }}" | sort -V | head -n1)" != "$min_poetry_version" ]; then
           echo "Less than the minimum required python version: ${min_python_version}"
           echo "RUN_UPDATE=false" >> $GITHUB_ENV
