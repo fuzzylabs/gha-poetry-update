@@ -30,23 +30,6 @@ runs:
     #   shell: bash
 
     #----------------------------------------------
-    #  Manual install python
-    #----------------------------------------------
-    - name: Install python
-      run: |
-        curl https://pyenv.run | bash
-        export PYENV_ROOT="$HOME/.pyenv"
-        [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-        eval "$(pyenv init -)"
-        exec "$SHELL"
-
-        brew update
-        brew install pyenv
-        pyenv install 3.10.0
-        pyenv local 3.10.0
-      shell: bash
-
-    #----------------------------------------------
     #  Check out the caller repo & Set up python
     #----------------------------------------------
     - name: Check out repository
@@ -67,6 +50,22 @@ runs:
         virtualenvs-create: true
         virtualenvs-in-project: true
         installer-parallel: true
+
+    #----------------------------------------------
+    #  Manual install python
+    #----------------------------------------------
+    - name: Install python
+      run: |
+        curl https://pyenv.run | bash
+        export PYENV_ROOT="$HOME/.pyenv"
+        [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+        eval "$(pyenv init -)"
+        exec "$SHELL"
+
+        pyenv install ${{ inputs.python-version }}
+        pyenv local ${{ inputs.python-version }}
+        poetry env use ${{ inputs.python-version }}
+      shell: bash
 
     #----------------------------------------------
     #         Check if poetry.lock exists
