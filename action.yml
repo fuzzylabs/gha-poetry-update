@@ -32,8 +32,10 @@ runs:
     #----------------------------------------------
     #  Manual install python
     #----------------------------------------------
-    - name: Check compatible version
+    - name: Install python
       run: |
+        brew update
+        brew install pyenv
         pyenv install 3.10.0
         pyenv local 3.10.0
       shell: bash
