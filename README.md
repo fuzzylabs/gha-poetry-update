@@ -88,6 +88,6 @@ jobs:
     steps:
         - uses: git@github.com:fuzzylabs/gha-poetry-update.git@main
           with:
-            python-version: '3.10.5'
-            poetry-version: '1.5.0'
+            python-version: '3.10.12'
+            poetry-version: '1.8.2'
 ```
