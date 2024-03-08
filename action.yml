@@ -39,7 +39,7 @@ runs:
       with:
         python-version: ${{ inputs.python-version }}
       env:
-          AGENT_TOOLSDIRECTORY: /opt/hostedtoolcache
+          RUNNER_TOOL_CACHE: RUNNER_TOOL_CACHE/Python/*
 
     #----------------------------------------------
     #           Install & configure poetry
