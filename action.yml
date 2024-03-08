@@ -18,12 +18,13 @@ runs:
     #  Check minimum python & poetry version
     #----------------------------------------------
     # 3.10.5 is the min version support for ubuntu 22.04 (latest)
+    # Poetry 1.2 is the first release that support python >=3.8
     - name: Check compatible version
       run: |
         min_python_version="3.10.5"
-        min_poetry_version="1.5"
+        min_poetry_version="1.2"
         if [ "$(printf '%s\n' "$min_python_version" "${{ inputs.python-version }}" | sort -V | head -n1)" = "$min_python_version" ]; then
-          echo "Greater than or equal to ${min_python_version}"
+          echo "Greater than or equal to the minimum python version: ${min_python_version}"
         else
           echo "Less than the minimum required python version: ${min_python_version}"
           echo "RUN_UPDATE=false" >> $GITHUB_ENV
