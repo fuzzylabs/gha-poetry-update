@@ -24,13 +24,13 @@ runs:
         min_python_version="3.10.5"
         min_poetry_version="1.2"
         if [ "$(printf '%s\n' "$min_python_version" "${{ inputs.python-version }}" | sort -V | head -n1)" != "$min_python_version" ]; then
-          echo "Less than the minimum required python version: ${min_python_version}"
+          echo "Less than the minimum required python version: ${min_python_version}, exiting workflow"
           echo "RUN_UPDATE=false" >> $GITHUB_ENV
           exit 0
         fi
 
         if [ "$(printf '%s\n' "$min_poetry_version" "${{ inputs.poetry-version }}" | sort -V | head -n1)" != "$min_poetry_version" ]; then
-          echo "Less than the minimum required poetry version: ${min_poetry_version}"
+          echo "Less than the minimum required poetry version: ${min_poetry_version}, exiting workflow"
           echo "RUN_UPDATE=false" >> $GITHUB_ENV
           exit 0
         fi
