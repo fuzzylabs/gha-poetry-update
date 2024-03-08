@@ -40,8 +40,8 @@ runs:
         python-version: ${{ inputs.python-version }}
       env:
         # Required to detect python properly
-        # AGENT_TOOLSDIRECTORY: '/opt/hostedtoolcache'
-        AGENT_TOOLSDIRECTORY: '/opt/github/actions-runner/_work/_tool'
+        AGENT_TOOLSDIRECTORY: '/opt/hostedtoolcache'
+        # AGENT_TOOLSDIRECTORY: '/opt/github/actions-runner/_work/_tool'
 
     #----------------------------------------------
     #           Install & configure poetry
