@@ -15,6 +15,20 @@ runs:
   using: "composite"
   steps:
     #----------------------------------------------
+    #  Check minimum python & poetry version
+    #----------------------------------------------
+    - name: Check compatible version
+      run: |
+        min_python_version="3.10.0"
+        min_poetry_version="1.5.0"
+        if [ "$(printf '%s\n' "$min_python_version" "${{ inputs.python-version }}" | sort -V | head -n1)" = "$min_python_version" ]; then
+          echo "Greater than or equal to ${min_python_version}"
+        else
+          echo "Less than ${min_python_version}"
+        fi
+      shell: bash
+
+    #----------------------------------------------
     #  Check out the caller repo & Set up python
     #----------------------------------------------
     - name: Check out repository
