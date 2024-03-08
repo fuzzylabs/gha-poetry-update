@@ -60,22 +60,3 @@ jobs:
     
         - uses: git@github.com:fuzzylabs/gha-poetry-update.git@main
 ```
-
-currentver="3.10.0"
-requiredver="5.0.0"
-test="$(printf '%s\n' "$requiredver" "$currentver" | sort -V)"
-echo $test
-
- if [ "$(printf '%s\n' "$requiredver" "$currentver" | sort -V | head -n1)" = "$requiredver" ]; then 
-        echo "Greater than or equal to ${requiredver}"
- else
-        echo "Less than ${requiredver}"
- fi
-
-        min_python_version="3.10.0"
-        min_poetry_version="1.5.0"
-        if [ "$(printf '%s\n' "$min_python_version" "$inputs.python-version" | sort -V | head -n1)" = "$min_python_version" ]; then
-          echo "Greater than or equal to ${requiredver}"
-        else
-          echo "Less than ${requiredver}"
-        fi
