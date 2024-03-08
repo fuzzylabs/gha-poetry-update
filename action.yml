@@ -6,7 +6,7 @@ branding:
 inputs:
   python-version:
     description: "The python version to use with poetry"
-    default: '3.10'
+    default: '3.10.0'
   poetry-version:
     description: "The poetry version to use"
     default: '1.8.2'
@@ -35,10 +35,12 @@ runs:
     - name: Check out repository
       uses: actions/checkout@v4
 
-    # - name: Set up python
-    #   uses: actions/setup-python@v5
-    #   with:
-    #     python-version: ${{ inputs.python-version }}
+    - name: Set up python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+        architecture: x64
+        
 
     #----------------------------------------------
     #           Install & configure poetry
@@ -50,22 +52,6 @@ runs:
         virtualenvs-create: true
         virtualenvs-in-project: true
         installer-parallel: true
-
-    #----------------------------------------------
-    #  Manual install python
-    #----------------------------------------------
-    - name: Install python
-      run: |
-        curl https://pyenv.run | bash
-        export PYENV_ROOT="$HOME/.pyenv"
-        [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-        eval "$(pyenv init -)"
-        exec "$SHELL"
-
-        pyenv install ${{ inputs.python-version }}
-        pyenv local ${{ inputs.python-version }}
-        poetry env use ${{ inputs.python-version }}
-      shell: bash
 
     #----------------------------------------------
     #         Check if poetry.lock exists
