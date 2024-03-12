@@ -60,3 +60,34 @@ jobs:
     
         - uses: git@github.com:fuzzylabs/gha-poetry-update.git@main
 ```
+
+## Action inputs
+
+All inputs are **optional**. If not set, sensible defaults will be used.
+
+| Name | Description | Default |
+| --- | --- | --- |
+| `python-version` | The python version to use with poetry, the minimum version required is >=3.10.5 | 3.10.12 |
+| `poetry-version` | The poetry version to use | 1.8.2 |
+
+### Example
+
+```yaml
+name: Poetry Update
+
+on: 
+  # Run daily at midnight
+  schedule:
+    - cron: "0 0 * * *"
+  # Allow a manual trigger
+  workflow_dispatch:
+
+jobs:
+  auto-update:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: git@github.com:fuzzylabs/gha-poetry-update.git@main
+          with:
+            python-version: '3.10.12'
+            poetry-version: '1.8.2'
+```

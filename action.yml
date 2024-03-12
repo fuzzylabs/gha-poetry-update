@@ -3,27 +3,61 @@ description: 'Runs `poetry update`, checks for newer dependencies. Creates a pul
 branding:
   icon: "chevrons-up"
   color: "purple"
+inputs:
+  python-version:
+    description: "The python version to use with poetry"
+    default: '3.10.12'
+  poetry-version:
+    description: "The poetry version to use"
+    default: '1.8.2'
+
 runs:
   using: "composite"
   steps:
     #----------------------------------------------
+    #  Check minimum python & poetry version
+    #----------------------------------------------
+    # 3.10.5 is the min version support for ubuntu 22.04 (latest)
+    # Poetry 1.2 is the first release that support python >=3.8
+    - name: Check compatible version
+      run: |
+        min_python_version="3.10.5"
+        min_poetry_version="1.2"
+        if [ "$(printf '%s\n' "$min_python_version" "${{ inputs.python-version }}" | sort -V | head -n1)" != "$min_python_version" ]; then
+          echo "Less than the minimum required python version: ${min_python_version}, exiting workflow"
+          echo "RUN_UPDATE=false" >> $GITHUB_ENV
+          exit 0
+        fi
+
+        if [ "$(printf '%s\n' "$min_poetry_version" "${{ inputs.poetry-version }}" | sort -V | head -n1)" != "$min_poetry_version" ]; then
+          echo "Less than the minimum required poetry version: ${min_poetry_version}, exiting workflow"
+          echo "RUN_UPDATE=false" >> $GITHUB_ENV
+          exit 0
+        fi
+      shell: bash
+
+    #----------------------------------------------
     #  Check out the caller repo & Set up python
     #----------------------------------------------
     - name: Check out repository
+      if: env.RUN_UPDATE != 'false'
       uses: actions/checkout@v4
 
     - name: Set up python
-      uses: actions/setup-python@v4
+      if: env.RUN_UPDATE != 'false'
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: ${{ inputs.python-version }}
+        
 
     #----------------------------------------------
     #           Install & configure poetry
     #----------------------------------------------
     - name: Install Poetry
+      if: env.RUN_UPDATE != 'false'
       uses: snok/install-poetry@v1
       with:
-        version: 1.8.2
+        version: ${{ inputs.poetry-version }}
         virtualenvs-create: true
         virtualenvs-in-project: true
         installer-parallel: true
@@ -32,6 +66,7 @@ runs:
     #         Check if poetry.lock exists
     #----------------------------------------------
     - name: Check if poetry.lock exists
+      if: env.RUN_UPDATE != 'false'
       run: |
         if [ -f "poetry.lock" ]; then
           echo "poetry.lock file found, running poetry update."
