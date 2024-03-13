@@ -1,0 +1,7 @@
+# The following patterns are used to auto-assign review requests
+# to specific individuals. Order is important; the last matching
+# pattern takes the most precedence.
+
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence,
+* @fuzzylabs/fuzzy-labs
