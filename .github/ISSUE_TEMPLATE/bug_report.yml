@@ -44,3 +44,7 @@ body:
       label: Any relevant log output
       description: Please include any relevant log output (this will automatically render into code).
       render: shell
+
+  - type: markdown
+    attributes:
+      value: "Please review the information you've entered above and submit your report. We appreciate your contribution!"
