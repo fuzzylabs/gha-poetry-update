@@ -58,7 +58,7 @@ jobs:
               ${{ secrets.<SSH_PRIVATE_KEY_1> }}
               ${{ secrets.<SSH_PRIVATE_KEY_2> }}
     
-        - uses: fuzzylabs/gha-poetry-update.git@v1
+        - uses: fuzzylabs/gha-poetry-update@v1
 ```
 
 ## Action inputs
