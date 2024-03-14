@@ -1,5 +1,6 @@
 name: 'Poetry Update'
 description: 'Runs `poetry update`, checks for newer dependencies. Creates a pull request if any updates are available.'
+author: 'Fuzzy Labs'
 branding:
   icon: "chevrons-up"
   color: "purple"

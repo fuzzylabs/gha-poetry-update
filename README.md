@@ -29,7 +29,7 @@ jobs:
   auto-update:
     runs-on: ubuntu-latest
     steps:
-        - uses: fuzzylabs/gha-poetry-update.git@main
+        - uses: fuzzylabs/gha-poetry-update.git@v1
 ```
 
  ### Handling Private Dependencies Example 🔐
@@ -58,7 +58,7 @@ jobs:
               ${{ secrets.<SSH_PRIVATE_KEY_1> }}
               ${{ secrets.<SSH_PRIVATE_KEY_2> }}
     
-        - uses: fuzzylabs/gha-poetry-update.git@main
+        - uses: fuzzylabs/gha-poetry-update.git@v1
 ```
 
 ## Action inputs
@@ -86,7 +86,7 @@ jobs:
   auto-update:
     runs-on: ubuntu-latest
     steps:
-        - uses: fuzzylabs/gha-poetry-update.git@main
+        - uses: fuzzylabs/gha-poetry-update.git@v1
           with:
             python-version: '3.10.12'
             poetry-version: '1.8.2'
