@@ -29,7 +29,7 @@ jobs:
   auto-update:
     runs-on: ubuntu-latest
     steps:
-        - uses: fuzzylabs/gha-poetry-update.git@v1
+        - uses: fuzzylabs/gha-poetry-update@v1
 ```
 
  ### Handling Private Dependencies Example 🔐
@@ -86,7 +86,7 @@ jobs:
   auto-update:
     runs-on: ubuntu-latest
     steps:
-        - uses: fuzzylabs/gha-poetry-update.git@v1
+        - uses: fuzzylabs/gha-poetry-update@v1
           with:
             python-version: '3.10.12'
             poetry-version: '1.8.2'
