@@ -88,8 +88,8 @@ runs:
         echo "Running"
         poetry update
         echo "poetry updated"
-        UPDATE_MESSAGE=$(poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g')
-        echo "poetry updated"
+        UPDATE_MESSAGE=$(poetry update | grep -i 'updating' | grep -v 'Updating dependencies')
+        echo "poetry updated and message saved"
         echo $UPDATE_MESSAGE
         {
           echo "UPDATE_MESSAGE<<EOF"
