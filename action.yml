@@ -85,13 +85,16 @@ runs:
     - name: Run poetry update
       if: env.RUN_UPDATE != 'false'
       run: |
+        echo "Running"
         UPDATE_MESSAGE=$(poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g')
+        echo "poetry updated"
         echo $UPDATE_MESSAGE
         {
           echo "UPDATE_MESSAGE<<EOF"
           echo "${UPDATE_MESSAGE}"
           echo "EOF"
         } >> $GITHUB_ENV
+        echo "env variable assigned"
       shell: bash
 
     #----------------------------------------------
