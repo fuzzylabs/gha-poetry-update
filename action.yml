@@ -87,6 +87,7 @@ runs:
       run: |
         echo "Running"
         poetry update
+        echo "poetry updated"
         UPDATE_MESSAGE=$(poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g')
         echo "poetry updated"
         echo $UPDATE_MESSAGE
