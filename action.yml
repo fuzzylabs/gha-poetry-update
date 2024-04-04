@@ -85,6 +85,7 @@ runs:
     - name: Run poetry update
       if: env.RUN_UPDATE != 'false'
       run: |
+        poetry install --no-interaction --no-root
         echo "Running"
         poetry update >> temp.txt
         echo "poetry updated"
