@@ -86,7 +86,8 @@ runs:
       if: env.RUN_UPDATE != 'false'
       run: |
         echo "Running"
-        UPDATE_MESSAGE=${poetry update}
+        VARIABLE="this"
+        echo "variable set"
         poetry update
         echo "poetry updated"
         UPDATE_MESSAGE=$(poetry update | grep -i 'updating' | grep -v 'Updating dependencies')
