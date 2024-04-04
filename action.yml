@@ -93,6 +93,7 @@ runs:
           cat temp.txt
           echo "EOF"
         } >> $GITHUB_ENV
+        cat temp.txt
         echo "env variable assigned"
       shell: bash
 
