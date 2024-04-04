@@ -86,16 +86,11 @@ runs:
       if: env.RUN_UPDATE != 'false'
       run: |
         echo "Running"
-        VARIABLE="this"
-        echo "variable set"
-        poetry update
+        poetry update >> temp.txt
         echo "poetry updated"
-        UPDATE_MESSAGE=$(poetry update | grep -i 'updating' | grep -v 'Updating dependencies')
-        echo "poetry updated and message saved"
-        echo $UPDATE_MESSAGE
         {
           echo "UPDATE_MESSAGE<<EOF"
-          echo "${UPDATE_MESSAGE}"
+          cat temp.txt
           echo "EOF"
         } >> $GITHUB_ENV
         echo "env variable assigned"
