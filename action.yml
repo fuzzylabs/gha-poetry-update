@@ -43,8 +43,6 @@ runs:
     - name: Check out repository
       if: env.RUN_UPDATE != 'false'
       uses: actions/checkout@v4
-      with:
-        ref: FUZB-91-the-branch-of-outdated-requirements
 
     - name: Set up python
       if: env.RUN_UPDATE != 'false'
