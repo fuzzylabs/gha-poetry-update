@@ -90,7 +90,6 @@ runs:
           cat temp.txt
           echo "EOF"
         } >> $GITHUB_ENV
-        cat temp.txt
       shell: bash
 
     #----------------------------------------------
