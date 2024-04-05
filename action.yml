@@ -84,10 +84,10 @@ runs:
       if: env.RUN_UPDATE != 'false'
       run: |
         poetry install --no-interaction --no-root
-        poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g' >> temp.txt
+        poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g' >> updated_deps.txt
         {
           echo "UPDATE_MESSAGE<<EOF"
-          cat temp.txt
+          cat updated_deps.txt
           echo "EOF"
         } >> $GITHUB_ENV
       shell: bash
