@@ -85,6 +85,7 @@ runs:
       run: |
         poetry install --no-interaction --no-root
         poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g' >> updated_deps.txt
+        cat updated_deps.txt
         {
           echo "UPDATE_MESSAGE<<EOF"
           cat updated_deps.txt
