@@ -91,7 +91,7 @@ runs:
           cat /var/tmp/updated_deps.txt
           echo "EOF"
         } >> $GITHUB_ENV
-        rm /var/tmp/updated_dep.txt
+        rm /var/tmp/updated_deps.txt
       shell: bash
 
     #----------------------------------------------
