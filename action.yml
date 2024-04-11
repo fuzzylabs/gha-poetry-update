@@ -62,11 +62,9 @@ runs:
       uses: snok/install-poetry@v1
       with:
         version: ${{ inputs.poetry-version }}
-        virtualenvs-create: true
+        virtualenvs-create: false
         virtualenvs-in-project: true
-        virtualenvs-path: ${{ inputs.directory }}
         installer-parallel: true
-        installation-arguments: --directory ${{ inputs.directory }}
 
     #----------------------------------------------
     #         Check if poetry.lock exists
@@ -76,6 +74,7 @@ runs:
       if: env.RUN_UPDATE != 'false'
       run: |
         if [ -f "poetry.lock" ]; then
+          poetry install
           echo "poetry.lock file found, running poetry update."
         else
           echo "poetry.lock file not found, skipping poetry update."
