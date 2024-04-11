@@ -11,6 +11,9 @@ inputs:
   poetry-version:
     description: "The poetry version to use"
     default: '1.8.2'
+  directory:
+    description: "The directory of the project files"
+    default: '.'
 
 runs:
   using: "composite"
@@ -67,6 +70,7 @@ runs:
     #         Check if poetry.lock exists
     #----------------------------------------------
     - name: Check if poetry.lock exists
+      working-directory: ${{ inputs.directory }}
       if: env.RUN_UPDATE != 'false'
       run: |
         if [ -f "poetry.lock" ]; then
@@ -81,6 +85,7 @@ runs:
     #                Run poetry update
     #----------------------------------------------
     - name: Run poetry update
+      working-directory: ${{ inputs.directory }}
       if: env.RUN_UPDATE != 'false'
       run: |
         UPDATE_MESSAGE=$(poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g')
