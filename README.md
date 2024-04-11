@@ -67,7 +67,7 @@ All inputs are **optional**. If not set, sensible defaults will be used.
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `python-version` | The python version to use with poetry, the minimum version required is >=3.10.5 | 3.10.12 |
+| `python-version` | The python version to use with poetry, the minimum version required is >=3.10 | 3.10.12 |
 | `poetry-version` | The poetry version to use | 1.8.2 |
 
 ### Example
@@ -91,3 +91,5 @@ jobs:
             python-version: '3.10.12'
             poetry-version: '1.8.2'
 ```
+
+_Note: We do not explicitly support this action with Python <=3.10.4. Though Python 3.10 is checked for as a minimum requirement, this is to capture workflows which set version generically to 3.10.X specifying only major and minor release numbers._
