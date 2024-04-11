@@ -90,7 +90,9 @@ runs:
       working-directory: ${{ inputs.directory }}
       if: env.RUN_UPDATE != 'false'
       run: |
+        echo "updating poetry"
         poetry update
+        echo "setting update message"
         UPDATE_MESSAGE=$(poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g')
         echo $UPDATE_MESSAGE
 
