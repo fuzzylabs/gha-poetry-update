@@ -66,7 +66,7 @@ runs:
         virtualenvs-in-project: true
         virtualenvs-path: ${{ inputs.directory }}
         installer-parallel: true
-        installation-arguments: --directory=${{ inputs.directory }}
+        installation-arguments: --directory ${{ inputs.directory }}
 
     #----------------------------------------------
     #         Check if poetry.lock exists
