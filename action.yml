@@ -62,9 +62,10 @@ runs:
       uses: snok/install-poetry@v1
       with:
         version: ${{ inputs.poetry-version }}
-        virtualenvs-create: false
+        virtualenvs-create: true
         virtualenvs-in-project: true
         installer-parallel: true
+
 
     #----------------------------------------------
     #         Check if poetry.lock exists
