@@ -125,11 +125,11 @@ runs:
         } >> $GITHUB_ENV
         {
           echo "BRANCH_TITLE<<EOF"
-          echo $BRANCH_NAME
+          echo $BRANCH_TITLE
           echo "EOF"
         } >> $GITHUB_ENV
         {
-          echo "BRANCH_TITLE<<EOF"
+          echo "COMMIT_MESSAGE<<EOF"
           echo $COMMIT_MESSAGE
           echo "EOF"
         } >> $GITHUB_ENV
