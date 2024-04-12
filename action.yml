@@ -73,6 +73,7 @@ runs:
       working-directory: ${{ inputs.directory }}
       if: env.RUN_UPDATE != 'false'
       run: |
+        echo pwd
         if [ -f "poetry.lock" ]; then
           poetry install
           echo "poetry.lock file found, running poetry update."
