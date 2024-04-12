@@ -119,9 +119,9 @@ runs:
           COMMIT_MESSAGE="Chore(deps): Upgrading `poetry` dependencies for ${{ inputs.directory  }}"
         fi
         echo "Updating branch name"
-        echo "$BRANCH_NAME" >> $GITHUB_ENV
-        echo "$BRANCH_TITLE" >> $GITHUB_ENV
-        echo "$COMMIT_MESSAGE" >> $GITHUB_ENV
+        echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+        echo "BRANCH_TITLE=$BRANCH_TITLE" >> $GITHUB_ENV
+        echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
         echo "Updated variables"
 
     - name: Create Pull Request
