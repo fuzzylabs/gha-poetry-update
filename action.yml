@@ -118,18 +118,15 @@ runs:
           BRANCH_TITLE="Update poetry dependencies for ${{ inputs.directory  }}"
           COMMIT_MESSAGE="Chore(deps): Upgrading `poetry` dependencies for ${{ inputs.directory  }}"
         fi
-        
         {
         echo 'BRANCH_NAME<<EOF'
         echo $BRANCH_NAME
         echo EOF} >> "$GITHUB_ENV"
-        
         {
         echo 'BRANCH_TITLE<<EOF'
         echo $BRANCH_NAME
         echo EOF} >> "$GITHUB_ENV"
-        
-         {
+        {
         echo 'BRANCH_TITLE<<EOF'
         echo $COMMIT_MESSAGE
         echo EOF} >> "$GITHUB_ENV"
