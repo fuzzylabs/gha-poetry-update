@@ -92,10 +92,10 @@ runs:
         echo "running install"
         poetry install --no-interaction --no-root
         echo "install complete"
-        echo "write to temp" > /var/tmp/updated_deps.txt
-        echo "written to temp"
-        cat /var/tmp/updated_deps.txt
-        poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g' > /var/tmp/updated_deps.txt
+        # poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g' > /var/tmp/updated_deps.txt
+        poetry update > /var/tmp/updated_deps.txt
+        which grep
+        which sed
         cat /var/tmp/updated_deps.txt
         {
           echo "UPDATE_MESSAGE<<EOF"
