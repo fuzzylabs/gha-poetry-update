@@ -93,7 +93,7 @@ runs:
         poetry install --no-interaction --no-root
         echo "install complete"
         # poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g' > /var/tmp/updated_deps.txt
-        poetry update | grep -i 'updating' > /var/tmp/updated_deps.txt
+        poetry update | grep -i 'updating' | grep -v 'Updating dependencies' > /var/tmp/updated_deps.txt
         which grep
         which sed
         cat /var/tmp/updated_deps.txt
@@ -116,13 +116,13 @@ runs:
         then
           BRANCH_NAME="update/poetry-update"
           BRANCH_TITLE="Update poetry dependencies"
-          COMMIT_MESSAGE="Chore(deps): Upgrading `poetry` dependencies"
+          COMMIT_MESSAGE="Chore(deps): Upgrading poetry dependencies"
         else
           BRANCH_NAME=$(echo ${{ inputs.directory }} | sed -r "s/[_ ]/-/g" | sed -r "s/\//--/g")
           BRANCH_NAME=$(echo $BRANCH_NAME | sed -r "s/--$//g")
           BRANCH_NAME="update/poetry-update-$BRANCH_NAME"
           BRANCH_TITLE="Update poetry dependencies for ${{ inputs.directory  }}"
-          COMMIT_MESSAGE="Chore(deps): Upgrading `poetry` dependencies for ${{ inputs.directory  }}"
+          COMMIT_MESSAGE="Chore(deps): Upgrading poetry dependencies for ${{ inputs.directory  }}"
         fi
         {
           echo "BRANCH_NAME<<EOF"
