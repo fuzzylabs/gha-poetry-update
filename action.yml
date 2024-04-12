@@ -121,15 +121,18 @@ runs:
         {
         echo 'BRANCH_NAME<<EOF'
         echo $BRANCH_NAME
-        echo EOF} >> "$GITHUB_ENV"
+        echo EOF
+        } >> "$GITHUB_ENV"
         {
         echo 'BRANCH_TITLE<<EOF'
         echo $BRANCH_NAME
-        echo EOF} >> "$GITHUB_ENV"
+        echo EOF
+        } >> "$GITHUB_ENV"
         {
         echo 'BRANCH_TITLE<<EOF'
         echo $COMMIT_MESSAGE
-        echo EOF} >> "$GITHUB_ENV"
+        echo EOF
+        } >> "$GITHUB_ENV"
         
 
     - name: Create Pull Request
