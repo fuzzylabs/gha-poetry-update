@@ -93,9 +93,7 @@ runs:
         poetry install --no-interaction --no-root
         echo "install complete"
         # poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g' > /var/tmp/updated_deps.txt
-        poetry update | grep -i "updating" | grep -v "Updating dependencies" > /var/tmp/updated_deps.txt
-        which grep
-        which sed
+        poetry update | grep -i "updatling" > /var/tmp/updated_deps.txt
         cat /var/tmp/updated_deps.txt
         {
           echo "UPDATE_MESSAGE<<EOF"
