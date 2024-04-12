@@ -102,6 +102,20 @@ runs:
     #----------------------------------------------
     #              Create a pull request
     #----------------------------------------------
+    - name: Create branch name
+      working-directory: ${{ inputs.directory }}
+      shell: bash
+      run: |
+        if [[ $(pwd) = "$HOME"]]; then
+          $BRANCH_NAME = "update/poetry-update";
+          $BRANCH_TITLE = "Update poetry dependencies";
+          $COMMIT_MESSAGE = "Chore(deps): Upgrading `poetry` dependencies";
+        else
+          $BRANCH_NAME = "update/poetry-update-{{ inputs.directory.lower().replace("/", "--").replace(' ', '-').replace('_', '-') }}";
+          $BRANCH_TITLE = "Update poetry dependencies for ${{ inputs.directory  }}";
+          $COMMIT_MESSAGE = "Chore(deps): Upgrading `poetry` dependencies for ${{ inputs.directory  }}";
+        fi
+
     - name: Create Pull Request
       if: env.RUN_UPDATE != 'false'
       uses: peter-evans/create-pull-request@v6
