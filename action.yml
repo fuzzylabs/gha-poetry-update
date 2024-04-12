@@ -112,7 +112,8 @@ runs:
           BRANCH_TITLE="Update poetry dependencies"
           COMMIT_MESSAGE="Chore(deps): Upgrading `poetry` dependencies"
         else
-          BRANCH_NAME="update/poetry-update-${{ inputs.directory.lower().replace("/", "--").replace(' ', '-').replace('_', '-') }}"
+          BRANCH_NAME = $(echo ${{ inputs.directory }} | sed -r "s/[_ ]/-/g" | sed -r "s/\//--/g")
+          BRANCH_NAME="update/poetry-update-$BRANCH_NAME"
           BRANCH_TITLE="Update poetry dependencies for ${{ inputs.directory  }}"
           COMMIT_MESSAGE="Chore(deps): Upgrading `poetry` dependencies for ${{ inputs.directory  }}"
         fi
