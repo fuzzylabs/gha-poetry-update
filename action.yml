@@ -112,7 +112,7 @@ runs:
       if: env.RUN_UPDATE != 'false'
       shell: bash
       run: |
-        if [ $"(pwd)" = "$HOME" ]
+        if [ ${{ inputs.directory }} != "." ]
         then
           BRANCH_NAME="update/poetry-update"
           BRANCH_TITLE="Update poetry dependencies"
