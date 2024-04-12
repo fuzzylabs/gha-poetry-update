@@ -89,7 +89,9 @@ runs:
       working-directory: ${{ inputs.directory }}
       if: env.RUN_UPDATE != 'false'
       run: |
+        echo "running install"
         poetry install --no-interaction --no-root
+        echo "install complete"
         poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g' > /var/tmp/updated_deps.txt
         cat /var/tmp/updated_deps.txt
         {
