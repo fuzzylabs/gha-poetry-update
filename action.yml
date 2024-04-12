@@ -13,7 +13,7 @@ inputs:
     default: '1.8.2'
   directory:
     description: "The directory of the project files"
-    default: '.'
+    default: './'
 
 runs:
   using: "composite"
