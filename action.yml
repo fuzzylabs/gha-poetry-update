@@ -75,7 +75,6 @@ runs:
       run: |
         pwd
         if [ -f "poetry.lock" ]; then
-          poetry install
           echo "poetry.lock file found, running poetry update."
         else
           echo "poetry.lock file not found, skipping poetry update."
@@ -105,6 +104,7 @@ runs:
     #----------------------------------------------
     - name: Create branch name
       working-directory: ${{ inputs.directory }}
+      if: env.RUN_UPDATE != 'false'
       shell: bash
       run: |
         if [ $"(pwd)" = "$HOME" ]
