@@ -91,9 +91,14 @@ runs:
       run: |
         echo "running install"
         poetry install --no-interaction --no-root
-        echo "install complete"
-        poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g' | cat - <(echo " ") > /var/tmp/updated_deps.txt
-        cat /var/tmp/updated_deps.txt
+        # In the below ` || [[ $? == 1 ]]` prevents grep from passing exit code 1 if no matches are found.
+        # This exit code would crash the action. The first grep will always exit with 0 since poetry update
+        # text always contains "Updating dependencies"
+        poetry update > /var/tmp/updated_deps.txt
+        #    | \grep -i 'updating' \
+        #    | grep -v 'Updating dependencies'  || [[ $? == 1 ]] \
+        #    | sed 's/Updating//g' \
+        #    | cat - <(echo " ") > /var/tmp/updated_deps.txt
         {
           echo "UPDATE_MESSAGE<<EOF"
           cat /var/tmp/updated_deps.txt
@@ -149,5 +154,5 @@ runs:
           body: |
             Update `poetry` dependencies to use latest compatible versions.
 
-            **Outdated packages**:
+            **Poetry update message**:
                 ${{ env.UPDATE_MESSAGE }}
