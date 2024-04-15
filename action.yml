@@ -91,14 +91,7 @@ runs:
       run: |
         echo "running install"
         poetry install --no-interaction --no-root
-        # In the below ` || [[ $? == 1 ]]` prevents grep from passing exit code 1 if no matches are found.
-        # This exit code would crash the action. The first grep will always exit with 0 since poetry update
-        # text always contains "Updating dependencies"
         poetry update > /var/tmp/updated_deps.txt
-        #    | \grep -i 'updating' \
-        #    | grep -v 'Updating dependencies'  || [[ $? == 1 ]] \
-        #    | sed 's/Updating//g' \
-        #    | cat - <(echo " ") > /var/tmp/updated_deps.txt
         {
           echo "UPDATE_MESSAGE<<EOF"
           cat /var/tmp/updated_deps.txt
@@ -124,6 +117,8 @@ runs:
           BRANCH_NAME=$(echo ${{ inputs.directory }} | sed -r "s/[_ ]/-/g" | sed -r "s/\//--/g")
           # remove trailing dashes
           BRANCH_NAME=$(echo $BRANCH_NAME | sed -r "s/-+$//g")
+          # NOTE: undesirable behaviour may occur if a project directory name is excessively long (~100 chars)
+          # or if two projects share the same name up to substitutions of "-" with " ".
           BRANCH_NAME="update/poetry-update-$BRANCH_NAME"
           BRANCH_TITLE="Update poetry dependencies for ${{ inputs.directory  }}"
           COMMIT_MESSAGE="Chore(deps): Upgrading poetry dependencies for ${{ inputs.directory  }}"
