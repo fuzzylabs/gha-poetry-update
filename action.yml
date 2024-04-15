@@ -11,6 +11,9 @@ inputs:
   poetry-version:
     description: "The poetry version to use"
     default: '1.8.2'
+  directory:
+    description: "The directory of the project files"
+    default: './'
 
 runs:
   using: "composite"
@@ -22,7 +25,7 @@ runs:
     # Poetry 1.2 is the first release that support python >=3.8
     - name: Check compatible version
       run: |
-        min_python_version="3.10.5"
+        min_python_version="3.10"
         min_poetry_version="1.2"
         if [ "$(printf '%s\n' "$min_python_version" "${{ inputs.python-version }}" | sort -V | head -n1)" != "$min_python_version" ]; then
           echo "Less than the minimum required python version: ${min_python_version}, exiting workflow"
@@ -67,6 +70,7 @@ runs:
     #         Check if poetry.lock exists
     #----------------------------------------------
     - name: Check if poetry.lock exists
+      working-directory: ${{ inputs.directory }}
       if: env.RUN_UPDATE != 'false'
       run: |
         if [ -f "poetry.lock" ]; then
@@ -81,11 +85,12 @@ runs:
     #                Run poetry update
     #----------------------------------------------
     - name: Run poetry update
+      working-directory: ${{ inputs.directory }}
       if: env.RUN_UPDATE != 'false'
       run: |
+        echo "running install"
         poetry install --no-interaction --no-root
-        poetry update | grep -i 'updating' | grep -v 'Updating dependencies' | sed 's/Updating//g' > /var/tmp/updated_deps.txt
-        cat /var/tmp/updated_deps.txt
+        poetry update > /var/tmp/updated_deps.txt
         {
           echo "UPDATE_MESSAGE<<EOF"
           cat /var/tmp/updated_deps.txt
@@ -96,16 +101,54 @@ runs:
     #----------------------------------------------
     #              Create a pull request
     #----------------------------------------------
+    - name: Create branch name
+      working-directory: ${{ inputs.directory }}
+      if: env.RUN_UPDATE != 'false'
+      shell: bash
+      run: |
+        if [ ${{ inputs.directory }} == "./" ]
+        then
+          BRANCH_NAME="update/poetry-update"
+          BRANCH_TITLE="Update poetry dependencies"
+          COMMIT_MESSAGE="Chore(deps): Upgrading poetry dependencies"
+        else
+          # replace " " and "_" with dashes
+          BRANCH_NAME=$(echo ${{ inputs.directory }} | sed -r "s/[_ ]/-/g" | sed -r "s/\//--/g")
+          # remove trailing dashes
+          BRANCH_NAME=$(echo $BRANCH_NAME | sed -r "s/-+$//g")
+          # NOTE: undesirable behaviour may occur if a project directory name is excessively long (~100 chars)
+          # or if two projects share the same name up to substitutions of "-" with " ".
+          BRANCH_NAME="update/poetry-update-$BRANCH_NAME"
+          BRANCH_TITLE="Update poetry dependencies for ${{ inputs.directory  }}"
+          COMMIT_MESSAGE="Chore(deps): Upgrading poetry dependencies for ${{ inputs.directory  }}"
+        fi
+        {
+          echo "BRANCH_NAME<<EOF"
+          echo $BRANCH_NAME
+          echo "EOF"
+        } >> $GITHUB_ENV
+        {
+          echo "BRANCH_TITLE<<EOF"
+          echo $BRANCH_TITLE
+          echo "EOF"
+        } >> $GITHUB_ENV
+        {
+          echo "COMMIT_MESSAGE<<EOF"
+          echo $COMMIT_MESSAGE
+          echo "EOF"
+        } >> $GITHUB_ENV
+        
+
     - name: Create Pull Request
       if: env.RUN_UPDATE != 'false'
       uses: peter-evans/create-pull-request@v6
       with:
           token: ${{ github.token }}
-          branch: update/poetry-update
-          title: Update poetry dependencies
-          commit-message: "Chore(deps): Upgrading `poetry` dependencies"
+          branch: ${{ env.BRANCH_NAME }}
+          title: ${{ env.BRANCH_TITLE }}
+          commit-message: ${{ env.COMMIT_MESSAGE }}
           body: |
             Update `poetry` dependencies to use latest compatible versions.
 
-            **Outdated packages**:
+            **Poetry update message**:
                 ${{ env.UPDATE_MESSAGE }}
