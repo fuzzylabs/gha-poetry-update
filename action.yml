@@ -73,7 +73,6 @@ runs:
       working-directory: ${{ inputs.directory }}
       if: env.RUN_UPDATE != 'false'
       run: |
-        pwd
         if [ -f "poetry.lock" ]; then
           echo "poetry.lock file found, running poetry update."
         else
@@ -113,7 +112,7 @@ runs:
           BRANCH_TITLE="Update poetry dependencies"
           COMMIT_MESSAGE="Chore(deps): Upgrading poetry dependencies"
         else
-          # replace other " " and "_" with dashes
+          # replace " " and "_" with dashes
           BRANCH_NAME=$(echo ${{ inputs.directory }} | sed -r "s/[_ ]/-/g" | sed -r "s/\//--/g")
           # remove trailing dashes
           BRANCH_NAME=$(echo $BRANCH_NAME | sed -r "s/-+$//g")
